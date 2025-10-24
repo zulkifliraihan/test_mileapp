@@ -1,0 +1,51 @@
+version: '3.9'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: mileapp-backend
+    restart: unless-stopped
+    working_dir: /app/backend
+    environment:
+      APP_ENV: local
+      APP_DEBUG: 'true'
+      APP_URL: http://localhost:8000
+      DB_CONNECTION: mongodb
+      MONGODB_URI: mongodb://root:example@mongodb:27017/mileapp?authSource=admin
+      MONGODB_DATABASE: mileapp
+    volumes:
+      - ./backend:/app/backend
+    command: sh -c "sleep 5 && php artisan db:seed --force && php artisan serve --host=0.0.0.0 --port=8000"
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mongodb
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: mileapp-frontend
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+  mongodb:
+    image: mongo:6
+    container_name: mileapp-mongodb
+    restart: unless-stopped
+    ports:
+      - "27018:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: mileapp
+    volumes:
+      - mongo_data:/data/db
+      - ./db:/docker-entrypoint-initdb.d:ro
+
+volumes:
+  mongo_data:

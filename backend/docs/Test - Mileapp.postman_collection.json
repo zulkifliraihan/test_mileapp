@@ -1,0 +1,1349 @@
+{
+	"info": {
+		"_postman_id": "97f310f9-bba0-479a-bca0-a0d09dcf6a6d",
+		"name": "Test - Mileapp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15607869"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"pm.collectionVariables.set(\"token\", jsonData.data.authorization.token);"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@mileapp.com\",\n    \"password\": \"12345678\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{app_url}}/api/login",
+							"host": [
+								"{{app_url}}"
+							],
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"admin@mileapp.com\",\n    \"password\": \"12345678\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{app_url}}/api/login",
+									"host": [
+										"{{app_url}}"
+									],
+									"path": [
+										"api",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.4.13"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 24 Oct 2025 17:04:56 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"response_code\": 200,\n    \"response_status\": \"successfully-login\",\n    \"message\": \"Successfully Action!\",\n    \"data\": {\n        \"authorization\": {\n            \"type\": \"Bearer\",\n            \"expires_in\": 3600,\n            \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzYxMzI1NDk2LCJleHAiOjE3NjEzMjkwOTYsIm5iZiI6MTc2MTMyNTQ5NiwianRpIjoiTUZtNWdPbDZmcWx2SVhxbCIsInN1YiI6IjY4ZmI5ZGU5NTc3MjdkOGQ3ZTBjNmU4MiIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.uvyOHCZJUdrBhMnPv4n5n-MKHoivNUECOEQTikrpnmI\"\n        },\n        \"user\": {\n            \"name\": \"Admin Mileapp\",\n            \"email\": \"admin@mileapp.com\",\n            \"updated_at\": \"2025-10-24T15:40:25.456000Z\",\n            \"created_at\": \"2025-10-24T15:40:25.456000Z\",\n            \"id\": \"68fb9de957727d8d7e0c6e82\"\n        }\n    },\n    \"redirect\": null\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Task",
+			"item": [
+				{
+					"name": "Get Task List",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{app_url}}/api/tasks?per_page=10&page=1",
+							"host": [
+								"{{app_url}}"
+							],
+							"path": [
+								"api",
+								"tasks"
+							],
+							"query": [
+								{
+									"key": "per_page",
+									"value": "10",
+									"description": "For get total data"
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"description": "For current page"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{app_url}}/api/tasks?per_page=10&page=1",
+									"host": [
+										"{{app_url}}"
+									],
+									"path": [
+										"api",
+										"tasks"
+									],
+									"query": [
+										{
+											"key": "per_page",
+											"value": "10",
+											"description": "For get total data"
+										},
+										{
+											"key": "page",
+											"value": "1",
+											"description": "For current page"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.4.13"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 24 Oct 2025 17:01:33 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"response_code\": 200,\n    \"response_status\": \"successfully-get\",\n    \"message\": \"Data successfully get!\",\n    \"data\": {\n        \"meta\": {\n            \"current_page\": 1,\n            \"first_page_url\": \"http://localhost:8000/api/tasks?page=1\",\n            \"from\": 1,\n            \"last_page\": 5,\n            \"last_page_url\": \"http://localhost:8000/api/tasks?page=5\",\n            \"links\": [\n                {\n                    \"url\": null,\n                    \"label\": \"&laquo; Previous\",\n                    \"page\": null,\n                    \"active\": false\n                },\n                {\n                    \"url\": \"http://localhost:8000/api/tasks?page=1\",\n                    \"label\": \"1\",\n                    \"page\": 1,\n                    \"active\": true\n                },\n                {\n                    \"url\": \"http://localhost:8000/api/tasks?page=2\",\n                    \"label\": \"2\",\n                    \"page\": 2,\n                    \"active\": false\n                },\n                {\n                    \"url\": \"http://localhost:8000/api/tasks?page=3\",\n                    \"label\": \"3\",\n                    \"page\": 3,\n                    \"active\": false\n                },\n                {\n                    \"url\": \"http://localhost:8000/api/tasks?page=4\",\n                    \"label\": \"4\",\n                    \"page\": 4,\n                    \"active\": false\n                },\n                {\n                    \"url\": \"http://localhost:8000/api/tasks?page=5\",\n                    \"label\": \"5\",\n                    \"page\": 5,\n                    \"active\": false\n                },\n                {\n                    \"url\": \"http://localhost:8000/api/tasks?page=2\",\n                    \"label\": \"Next &raquo;\",\n                    \"page\": 2,\n                    \"active\": false\n                }\n            ],\n            \"next_page_url\": \"http://localhost:8000/api/tasks?page=2\",\n            \"path\": \"http://localhost:8000/api/tasks\",\n            \"per_page\": 10,\n            \"prev_page_url\": null,\n            \"to\": 10,\n            \"total\": 50\n        },\n        \"tasks\": [\n            {\n                \"_id\": \"68fb9de957727d8d7e0c6e92\",\n                \"title\": \"Eligendi labore eum alias architecto itaque.\",\n                \"description\": \"Suscipit ratione placeat quia at iure ea assumenda. Expedita eligendi accusantium dolores enim illum. Iste dolores laborum quis sit provident earum.\\n\\nSimilique et omnis veniam sequi occaecati nesciunt culpa. Porro omnis similique amet saepe. Asperiores sapiente suscipit enim omnis sunt nam.\",\n                \"status\": \"done\",\n                \"due_date\": \"2025-10-26T17:59:42.000000Z\",\n                \"created_at\": \"2025-10-23T23:15:11.000000Z\",\n                \"updated_at\": \"2025-10-24T03:09:47.000000Z\"\n            },\n            {\n                \"_id\": \"68fb9de957727d8d7e0c6e87\",\n                \"title\": \"Et impedit mollitia sapiente illo.\",\n                \"description\": \"Dicta eligendi quis nesciunt et esse est alias ut. Sequi voluptas est quam asperiores ratione. In vel impedit est nulla beatae voluptatum. Quaerat vero eveniet voluptas cum numquam.\",\n                \"status\": \"open\",\n                \"due_date\": \"2025-10-30T19:14:49.000000Z\",\n                \"created_at\": \"2025-10-22T23:38:58.000000Z\",\n                \"updated_at\": \"2025-10-24T15:11:53.000000Z\"\n            },\n            {\n                \"_id\": \"68fb9de957727d8d7e0c6e95\",\n                \"title\": \"Sit quis quis qui hic deserunt.\",\n                \"description\": \"Consequuntur architecto accusamus voluptates accusantium in quis. Dolorem repellat ut praesentium corrupti. Voluptates ut asperiores ea possimus fuga cupiditate doloribus.\\n\\nQui veniam nam et quam eligendi omnis. Et quibusdam numquam tempore illo ducimus ducimus. Harum maiores voluptatem repellat commodi nihil vitae dolore. Quasi quo accusantium sequi illum nam blanditiis qui et.\\n\\nEsse ipsam voluptas consequuntur vero qui amet eum provident. Libero alias sed tempora enim distinctio. Eos dolores voluptates voluptatem dolorum pariatur fugiat fugiat corrupti.\",\n                \"status\": \"in_progress\",\n                \"due_date\": \"2025-11-01T21:18:36.000000Z\",\n                \"created_at\": \"2025-10-22T09:39:01.000000Z\",\n                \"updated_at\": \"2025-10-23T00:35:01.000000Z\"\n            },\n            {\n                \"_id\": \"68fb9de957727d8d7e0c6e8b\",\n                \"title\": \"Sit et illum sed nihil.\",\n                \"description\": \"Molestiae provident necessitatibus quibusdam eligendi laboriosam aspernatur nulla impedit. Occaecati quam earum eligendi qui quo minima accusantium iure. Sit voluptates architecto consectetur earum libero minima. Quia exercitationem et voluptas eligendi iste.\",\n                \"status\": \"in_progress\",\n                \"due_date\": null,\n                \"created_at\": \"2025-10-22T05:57:50.000000Z\",\n                \"updated_at\": \"2025-10-23T05:11:50.000000Z\"\n            },\n            {\n                \"_id\": \"68fb9de957727d8d7e0c6ea6\",\n                \"title\": \"Quos quisquam eos velit occaecati.\",\n                \"description\": \"Ipsa perferendis voluptas sed exercitationem. Laudantium placeat magnam excepturi facere dignissimos. Nihil quibusdam similique culpa quibusdam sunt.\\n\\nEveniet beatae dolor quis et. Unde unde non et vitae quaerat ipsum eum. Ea dolores voluptas optio unde sint reprehenderit repellat.\\n\\nNobis culpa officia enim omnis magni. Magnam facilis numquam et architecto autem. Non autem cum eveniet ab ab.\",\n                \"status\": \"in_progress\",\n                \"due_date\": \"2025-11-07T11:10:11.000000Z\",\n                \"created_at\": \"2025-10-21T09:02:14.000000Z\",\n                \"updated_at\": \"2025-10-24T14:06:17.000000Z\"\n            },\n            {\n                \"_id\": \"68fb9de957727d8d7e0c6e90\",\n                \"title\": \"Qui assumenda ipsa temporibus mollitia molestiae sunt quas.\",\n                \"description\": \"Aut ea quis consequatur. Aliquam aperiam enim voluptas sint officia excepturi est id. Eum ut modi inventore est vero voluptatum. Soluta ut ipsum voluptatem recusandae mollitia minus vero.\\n\\nVero voluptatem architecto aut reprehenderit earum magni veritatis deleniti. Quisquam animi error ut eligendi sequi. Facere dolore quas ratione dolorem saepe mollitia quidem.\\n\\nProvident officia voluptas nisi aut aspernatur sit sunt blanditiis. Provident voluptas quia in possimus. Perferendis debitis eaque itaque enim quaerat omnis voluptatem et.\",\n                \"status\": \"in_progress\",\n                \"due_date\": \"2025-10-31T13:19:15.000000Z\",\n                \"created_at\": \"2025-10-20T21:46:43.000000Z\",\n                \"updated_at\": \"2025-10-24T09:42:50.000000Z\"\n            },\n            {\n                \"_id\": \"68fb9de957727d8d7e0c6e99\",\n                \"title\": \"Accusantium quaerat esse et ea doloribus id minus natus.\",\n                \"description\": \"Et eos temporibus sunt et cum ut. Ab quia quae dolores unde recusandae sequi.\",\n                \"status\": \"in_progress\",\n                \"due_date\": \"2025-10-28T19:19:47.000000Z\",\n                \"created_at\": \"2025-10-20T06:26:36.000000Z\",\n                \"updated_at\": \"2025-10-20T07:45:40.000000Z\"\n            },\n            {\n                \"_id\": \"68fb9de957727d8d7e0c6ea0\",\n                \"title\": \"Et adipisci eum fuga commodi.\",\n                \"description\": \"Sunt et cumque vel reiciendis aut. Doloribus odio consectetur voluptatem voluptatibus. Quasi voluptas et ex in.\\n\\nEt quo suscipit commodi. Officiis sit ipsum et itaque quia. In voluptatum reprehenderit quia ut. Ea delectus magni voluptate sit totam a voluptate natus.\\n\\nSunt nobis omnis quia quos quia qui. Sed et totam fugit. Recusandae sint dolor consectetur voluptatibus occaecati autem fugit.\",\n                \"status\": \"in_progress\",\n                \"due_date\": null,\n                \"created_at\": \"2025-10-20T04:07:25.000000Z\",\n                \"updated_at\": \"2025-10-22T15:50:33.000000Z\"\n            },\n            {\n                \"_id\": \"68fb9de957727d8d7e0c6ea4\",\n                \"title\": \"Non voluptate et dolores aperiam impedit omnis est sequi.\",\n                \"description\": \"Odit excepturi officiis eos numquam. Vitae occaecati nemo recusandae velit. Soluta magnam optio similique saepe rerum. Laborum eveniet tempora quidem libero. Fuga rerum distinctio praesentium.\\n\\nQuam quis amet debitis nisi rerum sint minima. Odio quasi velit officia ad sunt omnis quia natus. Labore possimus rerum enim sint.\",\n                \"status\": \"in_progress\",\n                \"due_date\": null,\n                \"created_at\": \"2025-10-18T15:35:31.000000Z\",\n                \"updated_at\": \"2025-10-21T17:26:52.000000Z\"\n            },\n            {\n                \"_id\": \"68fb9de957727d8d7e0c6e9e\",\n                \"title\": \"Velit ex sed minus excepturi id animi qui.\",\n                \"description\": \"Aliquid a dolores dolorem qui maxime. Sed quas voluptates error aut aspernatur. Aliquam minima non nihil voluptate asperiores consequuntur.\\n\\nUt sint ut laboriosam qui quos. Et esse quia et recusandae dolorem aperiam. Similique repellat velit eos fugit illum at sit.\\n\\nEt sit minus repellat eaque corporis et nesciunt eaque. Nesciunt aut rerum veniam voluptas. Minima sapiente et accusantium est cupiditate aut.\",\n                \"status\": \"open\",\n                \"due_date\": \"2025-10-31T01:47:47.000000Z\",\n                \"created_at\": \"2025-10-18T12:47:32.000000Z\",\n                \"updated_at\": \"2025-10-24T12:08:00.000000Z\"\n            }\n        ]\n    },\n    \"redirect\": null\n}"
+						},
+						{
+							"name": "Failed - Token is required",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{app_url}}/api/tasks",
+									"host": [
+										"{{app_url}}"
+									],
+									"path": [
+										"api",
+										"tasks"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.4.13"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 24 Oct 2025 14:13:34 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"response_code\": 401,\n    \"response_status\": \"failed-authentication\",\n    \"message\": \"Error! The authentication failed!\",\n    \"errors\": [\n        \"Token is required!\"\n    ]\n}"
+						},
+						{
+							"name": "Failed - Params is required",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{app_url}}/api/tasks",
+									"host": [
+										"{{app_url}}"
+									],
+									"path": [
+										"api",
+										"tasks"
+									]
+								}
+							},
+							"status": "Unprocessable Content",
+							"code": 422,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.4.13"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 24 Oct 2025 16:44:38 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"response_code\": 422,\n    \"response_status\": \"failed-validation\",\n    \"message\": \"Error! The request not expected!\",\n    \"errors\": {\n        \"per_page\": [\n            \"The per page field is required.\"\n        ],\n        \"page\": [\n            \"The page field is required.\"\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Task Detail",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{app_url}}/api/tasks/68fb9de957727d8d7e0c6e92",
+							"host": [
+								"{{app_url}}"
+							],
+							"path": [
+								"api",
+								"tasks",
+								"68fb9de957727d8d7e0c6e92"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{app_url}}/api/tasks/68fb9de957727d8d7e0c6e92",
+									"host": [
+										"{{app_url}}"
+									],
+									"path": [
+										"api",
+										"tasks",
+										"68fb9de957727d8d7e0c6e92"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.4.13"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 24 Oct 2025 17:07:52 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"response_code\": 200,\n    \"response_status\": \"successfully-get\",\n    \"message\": \"Data successfully get!\",\n    \"data\": {\n        \"_id\": \"68fb9de957727d8d7e0c6e92\",\n        \"title\": \"Eligendi labore eum alias architecto itaque.\",\n        \"description\": \"Suscipit ratione placeat quia at iure ea assumenda. Expedita eligendi accusantium dolores enim illum. Iste dolores laborum quis sit provident earum.\\n\\nSimilique et omnis veniam sequi occaecati nesciunt culpa. Porro omnis similique amet saepe. Asperiores sapiente suscipit enim omnis sunt nam.\",\n        \"status\": \"done\",\n        \"due_date\": \"2025-10-26T17:59:42.000000Z\",\n        \"created_at\": \"2025-10-23T23:15:11.000000Z\",\n        \"updated_at\": \"2025-10-24T03:09:47.000000Z\"\n    },\n    \"redirect\": null\n}"
+						},
+						{
+							"name": "Failed - Not found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{app_url}}/api/tasks/68fb9de957727d8d7e0c6e92ss",
+									"host": [
+										"{{app_url}}"
+									],
+									"path": [
+										"api",
+										"tasks",
+										"68fb9de957727d8d7e0c6e92ss"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.4.13"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 24 Oct 2025 17:07:35 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"response_code\": 404,\n    \"response_status\": \"failed-not-found\",\n    \"message\": \"Error! The resource not found!\",\n    \"errors\": [\n        \"Task with the id 68fb9de957727d8d7e0c6e92ss was not found\"\n    ]\n}"
+						},
+						{
+							"name": "Failed - Token is required",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{app_url}}/api/tasks/68fb9de957727d8d7e0c6e92",
+									"host": [
+										"{{app_url}}"
+									],
+									"path": [
+										"api",
+										"tasks",
+										"68fb9de957727d8d7e0c6e92"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.4.13"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 24 Oct 2025 17:05:01 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"response_code\": 401,\n    \"response_status\": \"failed-authentication\",\n    \"message\": \"Error! The authentication failed!\",\n    \"errors\": [\n        \"Token is required!\"\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Create Task",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  // The title of the task (required, string)\n  \"title\": \"Finish API documentation\",\n\n  // A detailed description of the task (optional, string)\n  \"description\": \"Complete the API documentation for the new project module.\",\n\n  // The status of the task (required, string, must be one of: 'open', 'in_progress', 'done')\n  \"status\": \"open\",\n\n  // The due date for the task (optional, date in 'YYYY-MM-DD' format)\n  \"due_date\": \"2024-06-30\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{app_url}}/api/tasks",
+							"host": [
+								"{{app_url}}"
+							],
+							"path": [
+								"api",
+								"tasks"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  // The title of the task (required, string)\n  \"title\": \"Finish API documentation\",\n\n  // A detailed description of the task (optional, string)\n  \"description\": \"Complete the API documentation for the new project module.\",\n\n  // The status of the task (required, string, must be one of: 'open', 'in_progress', 'done')\n  \"status\": \"open\",\n\n  // The due date for the task (optional, date in 'YYYY-MM-DD' format)\n  \"due_date\": \"2024-06-30\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{app_url}}/api/tasks",
+									"host": [
+										"{{app_url}}"
+									],
+									"path": [
+										"api",
+										"tasks"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.4.13"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 24 Oct 2025 17:11:40 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"response_code\": 201,\n    \"response_status\": \"successfully-created\",\n    \"message\": \"Data successfully created!\",\n    \"data\": {\n        \"_id\": \"68fbb34c5aa5703339051262\",\n        \"title\": \"Finish API documentation\",\n        \"description\": \"Complete the API documentation for the new project module.\",\n        \"status\": \"open\",\n        \"due_date\": \"2024-06-30T00:00:00.000000Z\",\n        \"created_at\": \"2025-10-24T17:11:40.196000Z\",\n        \"updated_at\": \"2025-10-24T17:11:40.196000Z\"\n    },\n    \"redirect\": null\n}"
+						},
+						{
+							"name": "Failed - Token is required",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{app_url}}/api/tasks",
+									"host": [
+										"{{app_url}}"
+									],
+									"path": [
+										"api",
+										"tasks"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.4.13"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 24 Oct 2025 17:08:27 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"response_code\": 401,\n    \"response_status\": \"failed-authentication\",\n    \"message\": \"Error! The authentication failed!\",\n    \"errors\": [\n        \"Token is required!\"\n    ]\n}"
+						},
+						{
+							"name": "Failed - Validation - Field Required",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  // The title of the task (required, string)\n\n  // A detailed description of the task (optional, string)\n  \"description\": \"Complete the API documentation for the new project module.\",\n\n  // The status of the task (required, string, must be one of: 'open', 'in_progress', 'done')\n  \"status\": \"open\",\n\n  // The due date for the task (optional, date in 'YYYY-MM-DD' format)\n  \"due_date\": \"2024-06-30\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{app_url}}/api/tasks",
+									"host": [
+										"{{app_url}}"
+									],
+									"path": [
+										"api",
+										"tasks"
+									]
+								}
+							},
+							"status": "Unprocessable Content",
+							"code": 422,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.4.13"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 24 Oct 2025 17:11:12 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"response_code\": 422,\n    \"response_status\": \"failed-validation\",\n    \"message\": \"Error! The request not expected!\",\n    \"errors\": {\n        \"title\": [\n            \"The title field is required.\"\n        ]\n    }\n}"
+						},
+						{
+							"name": "Failed - Validation - Status Field",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  // The title of the task (required, string)\n  \"title\": \"Finish API documentation\",\n\n  // A detailed description of the task (optional, string)\n  \"description\": \"Complete the API documentation for the new project module.\",\n\n  // The status of the task (required, string, must be one of: 'open', 'in_progress', 'done')\n  \"status\": \"closed\",\n\n  // The due date for the task (optional, date in 'YYYY-MM-DD' format)\n  \"due_date\": \"2024-06-30\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{app_url}}/api/tasks",
+									"host": [
+										"{{app_url}}"
+									],
+									"path": [
+										"api",
+										"tasks"
+									]
+								}
+							},
+							"status": "Unprocessable Content",
+							"code": 422,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.4.13"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 24 Oct 2025 17:10:42 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"response_code\": 422,\n    \"response_status\": \"failed-validation\",\n    \"message\": \"Error! The request not expected!\",\n    \"errors\": {\n        \"status\": [\n            \"The selected status is invalid.\"\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Task",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  // (Optional) The title of the task. Required if provided. Must be a string, max 255 characters.\n  \"title\": \"Update API documentation\",\n\n  // (Optional) The description of the task. Can be null or a string.\n  \"description\": \"Update the API documentation for the new endpoints.\",\n\n  // (Optional) The status of the task. Required if provided. Must be one of: \"open\", \"in_progress\", or \"done\".\n  \"status\": \"in_progress\",\n\n  // (Optional) The due date for the task. Can be null or a valid date string (e.g., \"2024-06-30\").\n  \"due_date\": \"2024-06-30\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{app_url}}/api/tasks/68fb9de957727d8d7e0c6e92",
+							"host": [
+								"{{app_url}}"
+							],
+							"path": [
+								"api",
+								"tasks",
+								"68fb9de957727d8d7e0c6e92"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  // (Optional) The title of the task. Required if provided. Must be a string, max 255 characters.\n//   \"title\": \"Update API documentation\",\n\n  // (Optional) The description of the task. Can be null or a string.\n//   \"description\": \"Update the API documentation for the new endpoints.\",\n\n  // (Optional) The status of the task. Required if provided. Must be one of: \"open\", \"in_progress\", or \"done\".\n  \"status\": \"in_progress\"\n\n  // (Optional) The due date for the task. Can be null or a valid date string (e.g., \"2024-06-30\").\n//   \"due_date\": \"2024-06-30\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{app_url}}/api/tasks/68fb9de957727d8d7e0c6e92",
+									"host": [
+										"{{app_url}}"
+									],
+									"path": [
+										"api",
+										"tasks",
+										"68fb9de957727d8d7e0c6e92"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.4.13"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 24 Oct 2025 17:19:28 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"response_code\": 200,\n    \"response_status\": \"successfully-updated\",\n    \"message\": \"Data successfully updated!\",\n    \"data\": {\n        \"_id\": \"68fb9de957727d8d7e0c6e92\",\n        \"title\": \"Eligendi labore eum alias architecto itaque.\",\n        \"description\": \"Suscipit ratione placeat quia at iure ea assumenda. Expedita eligendi accusantium dolores enim illum. Iste dolores laborum quis sit provident earum.\\n\\nSimilique et omnis veniam sequi occaecati nesciunt culpa. Porro omnis similique amet saepe. Asperiores sapiente suscipit enim omnis sunt nam.\",\n        \"status\": \"in_progress\",\n        \"due_date\": \"2025-10-26T17:59:42.000000Z\",\n        \"created_at\": \"2025-10-23T23:15:11.000000Z\",\n        \"updated_at\": \"2025-10-24T17:19:28.843000Z\"\n    },\n    \"redirect\": null\n}"
+						},
+						{
+							"name": "Failed - Not found",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "{{app_url}}/api/tasks/68fb9de957727d8d7e0c6e92ss",
+									"host": [
+										"{{app_url}}"
+									],
+									"path": [
+										"api",
+										"tasks",
+										"68fb9de957727d8d7e0c6e92ss"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.4.13"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 24 Oct 2025 17:17:38 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"response_code\": 404,\n    \"response_status\": \"failed-not-found\",\n    \"message\": \"Error! The resource not found!\",\n    \"errors\": [\n        \"Task with the id 68fb9de957727d8d7e0c6e92ss was not found\"\n    ]\n}"
+						},
+						{
+							"name": "Failed - Validation - Field Required",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  // (Optional) The title of the task. Required if provided. Must be a string, max 255 characters.\n  \"title\": \"\",\n\n  // (Optional) The description of the task. Can be null or a string.\n//   \"description\": \"Update the API documentation for the new endpoints.\",\n\n  // (Optional) The status of the task. Required if provided. Must be one of: \"open\", \"in_progress\", or \"done\".\n  \"status\": \"in_progress\"\n\n  // (Optional) The due date for the task. Can be null or a valid date string (e.g., \"2024-06-30\").\n//   \"due_date\": \"2024-06-30\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{app_url}}/api/tasks/68fb9de957727d8d7e0c6e92",
+									"host": [
+										"{{app_url}}"
+									],
+									"path": [
+										"api",
+										"tasks",
+										"68fb9de957727d8d7e0c6e92"
+									]
+								}
+							},
+							"status": "Unprocessable Content",
+							"code": 422,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.4.13"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 24 Oct 2025 17:20:28 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"response_code\": 422,\n    \"response_status\": \"failed-validation\",\n    \"message\": \"Error! The request not expected!\",\n    \"errors\": {\n        \"title\": [\n            \"The title field is required.\"\n        ]\n    }\n}"
+						},
+						{
+							"name": "Failed - Validation - Status Field",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  // (Optional) The title of the task. Required if provided. Must be a string, max 255 characters.\n//   \"title\": \"Update API documentation\",\n\n  // (Optional) The description of the task. Can be null or a string.\n//   \"description\": \"Update the API documentation for the new endpoints.\",\n\n  // (Optional) The status of the task. Required if provided. Must be one of: \"open\", \"in_progress\", or \"done\".\n  \"status\": \"failed\"\n\n  // (Optional) The due date for the task. Can be null or a valid date string (e.g., \"2024-06-30\").\n//   \"due_date\": \"2024-06-30\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{app_url}}/api/tasks/68fb9de957727d8d7e0c6e92",
+									"host": [
+										"{{app_url}}"
+									],
+									"path": [
+										"api",
+										"tasks",
+										"68fb9de957727d8d7e0c6e92"
+									]
+								}
+							},
+							"status": "Unprocessable Content",
+							"code": 422,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.4.13"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 24 Oct 2025 17:19:51 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"response_code\": 422,\n    \"response_status\": \"failed-validation\",\n    \"message\": \"Error! The request not expected!\",\n    \"errors\": {\n        \"status\": [\n            \"The selected status is invalid.\"\n        ]\n    }\n}"
+						},
+						{
+							"name": "Failed - Token is required",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "{{app_url}}/api/tasks/68fb9de957727d8d7e0c6e92",
+									"host": [
+										"{{app_url}}"
+									],
+									"path": [
+										"api",
+										"tasks",
+										"68fb9de957727d8d7e0c6e92"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.4.13"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 24 Oct 2025 17:16:57 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"response_code\": 401,\n    \"response_status\": \"failed-authentication\",\n    \"message\": \"Error! The authentication failed!\",\n    \"errors\": [\n        \"Token is required!\"\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Task Detail",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{app_url}}/api/tasks/68fbb34c5aa5703339051262",
+							"host": [
+								"{{app_url}}"
+							],
+							"path": [
+								"api",
+								"tasks",
+								"68fbb34c5aa5703339051262"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{app_url}}/api/tasks/68fbb34c5aa5703339051262",
+									"host": [
+										"{{app_url}}"
+									],
+									"path": [
+										"api",
+										"tasks",
+										"68fbb34c5aa5703339051262"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.4.13"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 24 Oct 2025 17:23:48 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"response_code\": 200,\n    \"response_status\": \"successfully-deleted\",\n    \"message\": \"Data successfully deleted!\",\n    \"data\": null,\n    \"redirect\": null\n}"
+						},
+						{
+							"name": "Failed - Not found",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{app_url}}/api/tasks/68fb9de957727d8d7e0c6e92ss",
+									"host": [
+										"{{app_url}}"
+									],
+									"path": [
+										"api",
+										"tasks",
+										"68fb9de957727d8d7e0c6e92ss"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.4.13"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 24 Oct 2025 17:23:06 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"response_code\": 404,\n    \"response_status\": \"failed-not-found\",\n    \"message\": \"Error! The resource not found!\",\n    \"errors\": [\n        \"Task with the id 68fb9de957727d8d7e0c6e92ss was not found\"\n    ]\n}"
+						},
+						{
+							"name": "Failed - Token is required",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{app_url}}/api/tasks/68fb9de957727d8d7e0c6e92ss",
+									"host": [
+										"{{app_url}}"
+									],
+									"path": [
+										"api",
+										"tasks",
+										"68fb9de957727d8d7e0c6e92ss"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.4.13"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 24 Oct 2025 17:23:18 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"response_code\": 401,\n    \"response_status\": \"failed-authentication\",\n    \"message\": \"Error! The authentication failed!\",\n    \"errors\": [\n        \"Token is required!\"\n    ]\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "app_url",
+			"value": ""
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "default"
+		}
+	]
+}

@@ -1,0 +1,165 @@
+openapi: 3.0.3
+info:
+  title: Mileapp Mock API
+  version: 1.0.0
+  description: REST API for authentication and task management using Laravel + MongoDB + JWT.
+servers:
+  - url: http://localhost:8000/api
+paths:
+  /login:
+    post:
+      summary: Login and get JWT token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+              required: [email, password]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token: { type: string }
+                  token_type: { type: string, example: bearer }
+                  expires_in: { type: integer }
+        '422':
+          description: Validation error
+  /tasks:
+    get:
+      summary: List tasks with filters, sort, pagination
+      parameters:
+        - in: query
+          name: filter[status]
+          schema: { type: string, enum: [todo, in_progress, done] }
+        - in: query
+          name: filter[title]
+          schema: { type: string }
+        - in: query
+          name: sort
+          schema: { type: string, description: "field (title,status,due_date,created_at) or -field" }
+        - in: query
+          name: page
+          schema: { type: integer }
+        - in: query
+          name: per_page
+          schema: { type: integer, maximum: 100 }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Task'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+      security:
+        - bearerAuth: []
+    post:
+      summary: Create a task
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskCreate'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Task'
+        '422': { description: Validation error }
+      security:
+        - bearerAuth: []
+  /tasks/{id}:
+    put:
+      summary: Update a task
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskUpdate'
+      responses:
+        '200': { description: OK }
+        '404': { description: Not Found }
+        '422': { description: Validation error }
+      security:
+        - bearerAuth: []
+    delete:
+      summary: Delete a task
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      responses:
+        '204': { description: No Content }
+        '404': { description: Not Found }
+      security:
+        - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Task:
+      type: object
+      properties:
+        _id: { type: string }
+        title: { type: string }
+        description: { type: string, nullable: true }
+        status: { type: string, enum: [todo, in_progress, done] }
+        due_date: { type: string, format: date-time, nullable: true }
+        created_at: { type: string, format: date-time, nullable: true }
+        updated_at: { type: string, format: date-time, nullable: true }
+    TaskCreate:
+      type: object
+      required: [title, status]
+      properties:
+        title: { type: string, maxLength: 255 }
+        description: { type: string, nullable: true }
+        status: { type: string, enum: [todo, in_progress, done] }
+        due_date: { type: string, format: date-time, nullable: true }
+    TaskUpdate:
+      type: object
+      properties:
+        title: { type: string, maxLength: 255 }
+        description: { type: string, nullable: true }
+        status: { type: string, enum: [todo, in_progress, done] }
+        due_date: { type: string, format: date-time, nullable: true }
+    PaginationMeta:
+      type: object
+      properties:
+        current_page: { type: integer }
+        per_page: { type: integer }
+        total: { type: integer }
+        last_page: { type: integer }
+
