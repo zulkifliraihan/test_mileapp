@@ -75,6 +75,7 @@ const tasksModule = {
           filter: {
             ...(state.filters.title ? { title: state.filters.title } : {}),
             ...(state.filters.status ? { status: state.filters.status } : {}),
+            ...(state.filters.due_date ? { due_date: state.filters.due_date } : {}),
           },
         }
         console.log('fetch TasksModule - actions - params', params)

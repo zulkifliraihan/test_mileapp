@@ -31,12 +31,10 @@ class TaskService
             $query->where('title', 'like', '%' . $filters['title'] . '%');
         }
 
-        // Optional: created_at date range
-        if (!empty($filters['start_date'])) {
-            $query->where('created_at', '>=', Carbon::parse($filters['start_date'])->startOfDay());
-        }
-        if (!empty($filters['end_date'])) {
-            $query->where('created_at', '<=', Carbon::parse($filters['end_date'])->endOfDay());
+        if (!empty($filters['due_date'])) {
+            $date = Carbon::parse($filters['due_date']);
+            $query->where('due_date', '>=', $date->copy()->startOfDay())
+                  ->where('due_date', '<=', $date->copy()->endOfDay());
         }
 
         $sort = $params['sort'] ?? null;

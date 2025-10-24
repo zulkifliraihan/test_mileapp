@@ -24,8 +24,7 @@ class IndexTaskRequest extends FormRequest
             'filter' => ['sometimes', 'array'],
             'filter.status' => ['sometimes', 'string', 'in:open,in_progress,done'],
             'filter.title' => ['sometimes', 'string'],
-            'filter.start_date' => ['sometimes', 'date'],
-            'filter.end_date' => ['sometimes', 'date', 'after_or_equal:filter.start_date'],
+            'filter.due_date' => ['sometimes', 'date'],
 
             'sort' => ['sometimes', 'array'],
             'sort.field' => ['required_with:sort', 'in:title,status,due_date,created_at'],

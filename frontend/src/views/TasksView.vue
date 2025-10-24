@@ -46,11 +46,7 @@ const route = useRoute()
 const router = useRouter()
 const initialLoadDone = ref(false)
 
-const filteredTasks = computed(() => {
-  if (!filters.due_date) return (store.state as any).tasks.tasks as Task[]
-  const date = filters.due_date
-  return ((store.state as any).tasks.tasks as Task[]).filter((t) => (t.due_date ? t.due_date.startsWith(date) : false))
-})
+const tasksList = computed(() => (store.state as any).tasks.tasks as Task[])
 
 const fetchTasks = async (page = 1) => store.dispatch('tasks/fetch', page)
 
@@ -280,10 +276,10 @@ watch(
             <tr v-else-if="taskError">
               <td colspan="4" class="px-3 py-6 text-center text-red-600">{{ taskError }}</td>
             </tr>
-            <tr v-else-if="filteredTasks.length === 0">
+            <tr v-else-if="tasksList.length === 0">
               <td colspan="4" class="px-3 py-6 text-center text-gray-500">No tasks found</td>
             </tr>
-            <tr v-for="t in filteredTasks" :key="t._id" class="border-t border-gray-100">
+            <tr v-for="t in tasksList" :key="t._id" class="border-t border-gray-100">
               <td class="px-3 py-2 font-medium">
                 <button class="text-blue-600 hover:underline" @click="onOpenDetail(t)">{{ t.title }}</button>
               </td>
